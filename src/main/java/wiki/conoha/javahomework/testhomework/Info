@@ -1,0 +1,45 @@
+异常
+
+异常的父类是Throwable
+异常有两种，一种是Error，另一种是Exception
+Error往往都是由于JVM的问题导致的。JVM可能会遇到 虚拟机错误、内存溢出、线程死锁。这些都是Error
+通常我们所说的异常处理都是针对Exception与他的之类做处理
+Exception有两大类子类
+一种是checkedException，另一种是UncheckedException。
+也就是检查异常与非检查异常
+所谓检查异常指的就是当该类型的异常抛出的时候，编译器会要求强制进行相关的异常处理
+比如说 IOException SQLException
+
+那么，非强制检查类型异常 RuntimeException以及他的子类就是非检查型异常
+
+这类型的异常在程序当中被抛出的时候，编译器不会强制要求进行异常处理。
+
+NullPointException空指针异常
+ArrayIndexOutOfBoundsException 数组下标越界异常
+ArithmeticException 算数异常
+ClassCastException 类型转换异常
+
+Java对于异常的处理机制是抛出异常和捕获异常两种
+
+分别通过5个关键字来实现
+
+try catch finally throw throws
+
+其中try catch finally 这个组合主要用于异常的捕获和处理的
+throws用于声明异常，声明可能出现的异常
+throw用于抛出异常，手动抛出
+
+catch块的Exception一定要放在最后，应为Exception是所有异常的父类，try块抛出一个异常时，若直接匹配到Exception
+则不会执行下面的子类catch块，这样错误的写法编译器也会提示错误
+所以通常是子类异常catch块在前，最后不能被补货的异常用Exception来捕获。
+
+通过在catch块后面追加finally块来保证程序无论是否执行catch块都能正常执行
+但是一旦在catch块或try块里面加入里System.exit(1);这个语句，finally语句块将会强制终止执行
+
+
+※return,这个关键字很重要，整个try catch finally 一定是finally语句块执行完之后，
+才会执行return。无论这个return语句放在何处
+
+在多重catch块后，可以添加一个Exception来 处理可能会被遗漏的Exception
+尽量去处理异常，切忌只是简单地调用printStackTrace();去打印输出
+尽量添加finally语句块去释放占用的资源
