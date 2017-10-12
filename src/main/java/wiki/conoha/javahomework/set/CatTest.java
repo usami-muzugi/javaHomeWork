@@ -10,7 +10,7 @@ public class CatTest {
         Cat huahua = new Cat("花花",12,"英国短毛猫");
         Cat fanfan = new Cat("凡凡",3,"中华田园猫");
         //将宠物猫对象放入HashSet对象当中
-        Set set = new HashSet();
+        Set<Cat> set = new HashSet<Cat>();
         set.add(huahua);
         set.add(fanfan);
 
@@ -84,7 +84,6 @@ public class CatTest {
         }
         if (flag == true) {
             System.out.println("花花找到啦！！！");
-            System.out.println(obj);
         } else {
             System.out.println("花花没找到！！！");
         }
@@ -94,8 +93,44 @@ public class CatTest {
          在集合中查找花花的信息，并输出
          花花找到啦！！
          花花没找到！！！
-
          */
+
+        //删除花花二代的信息并输出   //移除单一元素
+        for (Cat c :set
+                ) {
+            if ("花花二代".equals(c.getName())) {
+                set.remove(c);
+                break; //※集合在进行设计时，做了一个限制，在读取数据时，不允许对数据进行删除
+            }
+        }
+
+        Set<Cat> set1 = new HashSet<Cat>();
+        for (Cat c :set
+                ) {
+            if (c.getAge()>5) {
+                // set.remove(c);
+                //※集合在进行设计时，做了一个限制，在读取数据时，不允许对数据进行删除
+                //这种同时删除多个元素的方法同样也会报错的 java.util.ConcurrentModificationException
+                set1.add(c);
+            }
+        }
+        set.removeAll(set1);  //所以，单一删除的话，可以用for+if判断，然后用break。
+                              //对于多条元素需要删除的话，可以将多条需要删除的元素添加到一个新的集合中
+                              //然后调用 set.removeAll(set1); 来删除多个元素
+
+        System.out.println("删除花花二代后的数据");
+        for (Cat cat : set) {
+            System.out.println(cat);
+        }
+
+        System.out.println("************************");
+        System.out.println("把所有都删除掉");
+        flag = set.removeAll(set);
+        if (flag == true) {
+            System.out.println("猫都不见了哦！");
+        } else {
+            System.out.println("ねこまたくあるよ！");
+        }
 
     }
 }

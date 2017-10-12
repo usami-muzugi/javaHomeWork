@@ -40,7 +40,7 @@ public class Cat {
     public String toString() {
         return "姓名='" + name + '\'' +
                 ", 年龄=" + age +
-                ", 品种='" + species;
+                ", 品种='" + species + '\'';
     }
 
     @Override
