@@ -131,6 +131,5 @@ public class CatTest {
         } else {
             System.out.println("ねこまたくあるよ！");
         }
-
     }
 }
