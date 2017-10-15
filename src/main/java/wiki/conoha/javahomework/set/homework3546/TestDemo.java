@@ -1,10 +1,18 @@
 package wiki.conoha.javahomework.set.homework3546;
 
+
+
+import sun.nio.cs.ext.SJIS;
+
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class TestDemo {
 
+    /**
+     * call funcUI
+     */
     public static void funcUI(){
         for (;;) {
             Scanner scanner = new Scanner(System.in);
@@ -37,10 +45,12 @@ public class TestDemo {
                         break;
                 }
             }
-
         }
-    }
+    }  //end funcUI();
 
+    /**
+     * call funcGoods
+     */
     public static void funcGoods(){
         for (;;) {
             Scanner scanner = new Scanner(System.in);
@@ -56,21 +66,21 @@ public class TestDemo {
             try {
                 operation = scanner.nextInt();
                 if (operation == 1 | operation == 2 | operation == 9) {
-                    GoodsManage goodsManage = GoodsManage.getInstance();
+
                     switch (operation) {
                         case 9:
                             funcUI();
                             break;
                         case 1:
                             System.out.println("商品信息导入中");
-                            goodsManage.importGoods();
+                            GoodsManage.importGoods();
                             System.out.println("导入成功！");
                             break;
                         case 2:
                             try {
                                 System.out.println("显示所有商品信息");
                                 System.out.println("所有商品信息为:");
-                                goodsManage.displayAllGoods();
+                                GoodsManage.displayAllGoods();
                                 break;
                             } catch (NullPointerException e) {
                                 System.out.println("请先导入商品信息后再显示所有商品信息！！！");
@@ -84,8 +94,11 @@ public class TestDemo {
                 System.out.println(e.getMessage());
             }
         }
-    }
+    }  //end funcGoods();
 
+    /**
+     *  call funShop()
+     */
     public static void funcShop(){
         for (;;) {
             Scanner scanner = new Scanner(System.in);
@@ -104,16 +117,16 @@ public class TestDemo {
                 operation = scanner.nextInt();
                 switch (operation) {
                     case 1:
-                        System.out.println();
+                        funcGoodsAdd();
                         break;
                     case 2:
-                        System.out.println();
+                        ShoppingCart.updateNumInCart();
                         break;
                     case 3:
-                        System.out.println();
+                        ShoppingCart.displayAllInCart();
                         break;
                     case 4:
-                        System.out.println();
+                        ShoppingCart.settleAccounts();
                         break;
                     case 9:
                         funcUI();
@@ -127,10 +140,57 @@ public class TestDemo {
                 System.out.println(e.getMessage());
             }
         }
+    }  //end funcShop();
+
+
+    public static void funcGoodsAdd() {
+        System.out.println("添加商品到购物车");
+        System.out.println("所有商品信息为:");
+        GoodsManage.importGoods();
+        GoodsManage.displayAllGoods();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入要添加的商品编号:");
+        String string = scanner.next();
+        Iterator<Goods> goodsManageIterator = GoodsManage.getSet().iterator();
+        boolean flag = false;
+        while (goodsManageIterator.hasNext()) {  //判断输入的商品编号是否存在
+            if (goodsManageIterator.next().getGoodsId().equals(string)) {
+                flag = true;
+            }
+        }
+        if (flag) {
+            if (ShoppingCart.getMap().containsKey(string)) {  //判断输入的商品是否已存在于购物车
+                System.out.println("该商品已添加,要修改请使用 2--修改购物车中的商品数量");
+            } else {
+                System.out.println("请输入要添加的商品数量:");
+                int sum = 0;
+                try {
+                    sum = scanner.nextInt();
+                    while (sum <= 0) {
+                        System.out.println("请输入大于0的数！！！");
+                        System.out.println("请输入要添加的商品数量:");
+                        sum = scanner.nextInt();
+                        continue;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("请输入数字进行操作！！！");
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                Iterator<Goods> iterator = GoodsManage.getSet().iterator();
+                while (iterator.hasNext()) {
+                    Goods goods = iterator.next();
+                    if (goods.getGoodsId().equals(string)) {
+                        ShoppingCart.addGoodsToCart(new GoodsInCart(goods,sum));
+                    }
+                }
+            }
+        }else{
+            System.out.println("输入的商品不存在！！！请重新输入！！！");
+        }
     }
 
     public static void main(String[] args) {
         funcUI();
     }
-
 }

@@ -1,7 +1,13 @@
 package wiki.conoha.javahomework.set.homework3546;
 
 public class GoodsInCart {
-    private Goods goods;
+    private Goods goods; //商品
+    private int num;  //数量
+
+    public GoodsInCart(Goods goods, int num) {
+        this.goods = goods;
+        this.num = num;
+    }
 
     public Goods getGoods() {
         return goods;
@@ -19,12 +25,19 @@ public class GoodsInCart {
         this.num = num;
     }
 
-    public GoodsInCart(Goods goods, int num) {
+    public GoodsInCart() {
 
         this.goods = goods;
         this.num = num;
     }
 
-    private int num;
-
+    @Override
+    public String toString() {
+        return "商品名称:" +
+                goods.getGoodsName() +
+                "，商品价格:" +
+                goods.getPrice() +
+                "，商品描述:" +
+                goods.getGoodsDesp();
+    }
 }
