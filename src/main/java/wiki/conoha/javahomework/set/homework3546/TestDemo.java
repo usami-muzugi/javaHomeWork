@@ -1,9 +1,5 @@
 package wiki.conoha.javahomework.set.homework3546;
 
-
-
-import sun.nio.cs.ext.SJIS;
-
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
