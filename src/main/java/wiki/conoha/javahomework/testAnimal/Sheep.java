@@ -1,4 +1,4 @@
-package wiki.conoha.javahomework.TestAnimal;
+package wiki.conoha.javahomework.testAnimal;
 
 public class Sheep extends Animal{
 

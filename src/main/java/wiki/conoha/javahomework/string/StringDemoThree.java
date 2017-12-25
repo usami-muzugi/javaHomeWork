@@ -1,8 +1,5 @@
 package wiki.conoha.javahomework.string;
 
-
-import sun.nio.cs.ext.GBK;
-
 import java.io.UnsupportedEncodingException;
 
 public class StringDemoThree {

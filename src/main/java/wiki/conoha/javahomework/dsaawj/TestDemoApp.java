@@ -1,9 +1,5 @@
 package wiki.conoha.javahomework.dsaawj;
 
-import sun.security.krb5.SCDynamicStoreConfig;
-
-import java.util.Scanner;
-
 public class TestDemoApp {
     public static void main(String[] args) {
         int [][] arr = new int[2][2];
