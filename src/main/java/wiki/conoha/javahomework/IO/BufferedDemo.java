@@ -5,7 +5,7 @@ import java.io.*;
 public class BufferedDemo {
     public static void main(String[] args) {
         //文件读写操作
-        String string = new String("C:\\Users\\wizard\\IdeaProjects\\javahomework\\src\\main\\java\\wiki\\conoha\\javahomework\\IO\\");
+        String string = "C:\\Users\\wizard\\IdeaProjects\\javahomework\\src\\main\\java\\wiki\\conoha\\javahomework\\IO\\";
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(string + "Buffer.txt");
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
