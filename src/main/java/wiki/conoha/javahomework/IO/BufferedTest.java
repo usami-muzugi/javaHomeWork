@@ -4,7 +4,7 @@ import java.io.*;
 
 public class BufferedTest {
     public static void main(String[] args) {
-        String string = new String("C:\\Users\\wizard\\IdeaProjects\\javahomework\\src\\main\\java\\wiki\\conoha\\javahomework\\IO\\");
+        String string = "C:\\Users\\wizard\\IdeaProjects\\javahomework\\src\\main\\java\\wiki\\conoha\\javahomework\\IO\\";
         final char [] abc = new String("abcdefghijklmnopqrstuvwxyz").toCharArray();
         final int sum = 100000;
         long lon = 0;
