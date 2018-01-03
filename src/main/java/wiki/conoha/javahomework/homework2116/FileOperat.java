@@ -73,6 +73,7 @@ public final class FileOperat {
         File file = new File(string);
         boolean flag = false;
         try {
+            //FileReader fileReader = new FileReader(file);
             FileInputStream fileInputStream = new FileInputStream(file);
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
