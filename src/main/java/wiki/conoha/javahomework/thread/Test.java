@@ -1,7 +1,5 @@
 package wiki.conoha.javahomework.thread;
 
-import javax.sound.midi.Track;
-
 class PrintRunnable implements Runnable{
 //    @Override
 //    public void run() {
