@@ -1,7 +1,5 @@
 package wiki.conoha.javahomework.thread.thread_weather;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 public class Weather {
     private int temperature;
     private int humidity;
