@@ -1,8 +1,5 @@
 package wiki.conoha.javahomework.IO;
 
-
-import wiki.conoha.javahomework.homework2116.FileOperat;
-
 import java.io.*;
 
 /**

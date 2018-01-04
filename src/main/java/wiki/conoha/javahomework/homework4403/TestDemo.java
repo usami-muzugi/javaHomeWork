@@ -1,6 +1,4 @@
 package wiki.conoha.javahomework.homework4403;
-
-import com.sun.java.swing.plaf.windows.WindowsInternalFrameTitlePane;
 import org.junit.Test;
 
 import java.util.InputMismatchException;
@@ -28,11 +26,13 @@ public class TestDemo {
      */
 
 
+    //
+    PlayList playListMain = new PlayList();
+    PlayList playListPublic = null;
+
     //     * 主菜单 public void mainMenu();
     @Test
     public void mainMenu() {
-
-
 
         /**
          * 如果不重置Scanner对象sc将会总在while死循环 try catch,
@@ -62,21 +62,17 @@ public class TestDemo {
                 System.out.println("输入错误！ 请输入对应数字！");
             }
         }
-
-
-
     }
 
     //     * 播放列表管理菜单 public void playListMenu();
     public void playListMenu() {
-
         boolean flag = true;
         while (flag) {
             try {
                 System.out.println("******************************************************");
                 System.out.println("                 **播放列表管理**");
                 System.out.println("                 1 -- 将歌曲添加到主播放列表");
-                System.out.println("                 2 -- 将歌曲调价到普通列表");
+                System.out.println("                 2 -- 将歌曲添加到普通列表");
                 System.out.println("                 3 -- 通过歌曲ID查询播放列表");
                 System.out.println("                 4 -- 同构歌曲名称查询播放列表中的歌曲");
                 System.out.println("                 5 -- 修改播放列表中的歌曲");
@@ -88,8 +84,14 @@ public class TestDemo {
                 System.out.println("请输入对应数字进行操作: ");
                 int operation = new Scanner(System.in).nextInt();
                 switch (operation) {
-                    case 1 : break;
-                    case 2 : break;
+                    case 1 : playListMain.addToPlayList(); break;
+                    case 2 :
+                        try {
+                            playListPublic.addToPlayList();
+                        } catch (NullPointerException e) {
+                            System.out.println("该播放列表不存在，请先将播放列表添加到播放器中！");
+                        }
+                             break;
                     case 3 : break;
                     case 4 : break;
                     case 5 : break;
@@ -121,8 +123,8 @@ public class TestDemo {
                 System.out.println("请输入对应数字进行操作: ");
                 int operation = new Scanner(System.in).nextInt();
                 switch (operation) {
-                    case 1 : break;
-                    case 2 : break;
+                    case 1 : PlayListCollection.addPlayList(playListPublic); break;
+                    case 2 : PlayListCollection.deletePlayList(playListPublic); break;
                     case 3 : break;
                     case 4 : break;
                     case 9 : flag = false; break;
@@ -133,9 +135,9 @@ public class TestDemo {
             }
         }
     }
+
     //     * 主流程实现 public void test();
     private  void test(){
-        Scanner scanner = new Scanner(System.in);
         mainMenu();
     }
 

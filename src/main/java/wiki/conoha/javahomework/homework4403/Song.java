@@ -21,11 +21,17 @@ public class Song {
     /**
      * 构造方法
      */
-    public Song(String id,String name,String singer) {
+    private Song(String id,String name,String singer) {
         this.id = id;
         this.name = name;
         this.singer = singer;
     }
+
+    public static Song getInstance(String id,String name,String singer) {
+        return new Song(id,name,singer);
+    }
+
+
 
     /**
      *  getter and setter
@@ -90,4 +96,5 @@ public class Song {
                 ", singer='" + singer + '\'' +
                 '}';
     }
+
 }
