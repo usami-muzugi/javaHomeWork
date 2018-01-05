@@ -1,7 +1,10 @@
 package wiki.conoha.javahomework.homework4403;
 import org.junit.Test;
 
+import java.security.Principal;
+import java.util.Collection;
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -26,9 +29,16 @@ public class TestDemo {
      */
 
 
-    //
-    PlayList playListMain = new PlayList();
-    PlayList playListPublic = null;
+
+    //定义一个主播放列表和一个自定义的播放列表,自定义的播放列表需要自己初始化。
+    private static PlayListCollection playListCollection = new PlayListCollection();
+    private PlayList playListMain = new PlayList();
+    private PlayList playListPublic = null;
+
+    {
+        playListCollection.getMap().put("主播放列表",playListMain);
+        playListCollection.getMap().put("自定义播放列表",playListPublic);
+    }
 
     //     * 主菜单 public void mainMenu();
     @Test
@@ -73,23 +83,31 @@ public class TestDemo {
                 System.out.println("                 **播放列表管理**");
                 System.out.println("                 1 -- 将歌曲添加到主播放列表");
                 System.out.println("                 2 -- 将歌曲添加到普通列表");
-                System.out.println("                 3 -- 通过歌曲ID查询播放列表");
-                System.out.println("                 4 -- 同构歌曲名称查询播放列表中的歌曲");
+                System.out.println("                 3 -- 通过歌曲ID查询播放列表中的歌曲");
+                System.out.println("                 4 -- 通过歌曲名称查询播放列表中的歌曲");
                 System.out.println("                 5 -- 修改播放列表中的歌曲");
                 System.out.println("                 6 -- 删除播放列表中的歌曲");
                 System.out.println("                 7 -- 显示播放列表中的所有歌曲");
                 System.out.println("                 8 -- 导出歌单");
                 System.out.println("                 9 -- 返回上一级菜单 ");
                 System.out.println("******************************************************");
-                System.out.println("请输入对应数字进行操作: ");
+                System.out.println("请输入对应数字进行管理: ");
                 int operation = new Scanner(System.in).nextInt();
                 switch (operation) {
-                    case 1 : playListMain.addToPlayList(); break;
+                    case 1 : playListMain.addToPlayList();playListCollection.getMap().replace("主播放列表",playListMain); break;
                     case 2 :
                         try {
+                            System.out.println("请输入要添加的播放列表名称:");
+                            playListPublic.setPlayListName(new Scanner(System.in).next());
                             playListPublic.addToPlayList();
+                            playListCollection.getMap().replace("主播放列表",playListMain);
                         } catch (NullPointerException e) {
                             System.out.println("该播放列表不存在，请先将播放列表添加到播放器中！");
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e1) {
+                                e1.printStackTrace();
+                            }
                         }
                              break;
                     case 3 : break;
@@ -120,11 +138,11 @@ public class TestDemo {
                 System.out.println("                 4 -- 显示所有播放列表名称");
                 System.out.println("                 9 -- 返回上一级菜单 ");
                 System.out.println("******************************************************");
-                System.out.println("请输入对应数字进行操作: ");
+                System.out.println("请输入对应数字进行管理: ");
                 int operation = new Scanner(System.in).nextInt();
                 switch (operation) {
-                    case 1 : PlayListCollection.addPlayList(playListPublic); break;
-                    case 2 : PlayListCollection.deletePlayList(playListPublic); break;
+                    case 1 : playListPublic = PlayListCollection.addPlayList(playListPublic); break;
+                    case 2 : playListPublic = PlayListCollection.deletePlayList(playListPublic); break;
                     case 3 : break;
                     case 4 : break;
                     case 9 : flag = false; break;
