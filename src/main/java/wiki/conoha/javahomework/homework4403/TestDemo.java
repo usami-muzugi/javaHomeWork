@@ -1,8 +1,5 @@
 package wiki.conoha.javahomework.homework4403;
-import org.junit.Test;
 
-import java.security.Principal;
-import java.util.Collection;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -28,20 +25,8 @@ public class TestDemo {
      * 主流程实现 public void test();
      */
 
-
-
-    //定义一个主播放列表和一个自定义的播放列表,自定义的播放列表需要自己初始化。
-    private static PlayListCollection playListCollection = new PlayListCollection();
-    private PlayList playListMain = new PlayList();
-    private PlayList playListPublic = null;
-
-    {
-        playListCollection.getMap().put("主播放列表",playListMain);
-        playListCollection.getMap().put("自定义播放列表",playListPublic);
-    }
-
     //     * 主菜单 public void mainMenu();
-    @Test
+
     public void mainMenu() {
 
         /**
@@ -94,22 +79,22 @@ public class TestDemo {
                 System.out.println("请输入对应数字进行管理: ");
                 int operation = new Scanner(System.in).nextInt();
                 switch (operation) {
-                    case 1 : playListMain.addToPlayList();playListCollection.getMap().replace("主播放列表",playListMain); break;
-                    case 2 :
-                        try {
-                            System.out.println("请输入要添加的播放列表名称:");
-                            playListPublic.setPlayListName(new Scanner(System.in).next());
-                            playListPublic.addToPlayList();
-                            playListCollection.getMap().replace("主播放列表",playListMain);
-                        } catch (NullPointerException e) {
-                            System.out.println("该播放列表不存在，请先将播放列表添加到播放器中！");
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
-                        }
-                             break;
+//                    case 1 : playListCollection.addPlayList(); break;
+//                    case 2 :
+//                        try {
+//                            System.out.println("请输入要添加的播放列表名称:");
+//                            playListPublic.setPlayListName(new Scanner(System.in).next());
+//                            playListPublic.addToPlayList();
+//                            playListCollection.getMap().replace("主播放列表",playListMain);
+//                        } catch (NullPointerException e) {
+//                            System.out.println("该播放列表不存在，请先将播放列表添加到播放器中！");
+//                            try {
+//                                Thread.sleep(1000);
+//                            } catch (InterruptedException e1) {
+//                                e1.printStackTrace();
+//                            }
+//                        }
+//                             break;
                     case 3 : break;
                     case 4 : break;
                     case 5 : break;
@@ -141,10 +126,27 @@ public class TestDemo {
                 System.out.println("请输入对应数字进行管理: ");
                 int operation = new Scanner(System.in).nextInt();
                 switch (operation) {
-                    case 1 : playListPublic = PlayListCollection.addPlayList(playListPublic); break;
-                    case 2 : playListPublic = PlayListCollection.deletePlayList(playListPublic); break;
-                    case 3 : break;
-                    case 4 : break;
+                    case 1 : {
+                        System.out.println("请输入要添加的播放列表的名称1:");
+                        String string = new Scanner(System.in).next();
+                        PlayListCollection.addPlayList(new PlayList(string));
+                    } break;
+                    case 2 : {
+                        System.out.println("请输入你要删除的播放列表名称:");
+                        String string = new Scanner(System.in).next();
+                        PlayListCollection.deletePlayList(new PlayList(string));
+                    } break;
+                    case 3 : {
+                        System.out.println("请输入你要查询的播放列表名称:");
+                        String string = new Scanner(System.in).next();
+                        try {
+                            PlayList playList = PlayListCollection.searchPlayListByName(string);
+                            System.out.println(playList.getPlayListName());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }break;
+                    case 4 : PlayListCollection.displayAllPlayListName();break;
                     case 9 : flag = false; break;
                     default: System.out.println("输入有误，请输入对应数字！");
                 }
@@ -158,7 +160,6 @@ public class TestDemo {
     private  void test(){
         mainMenu();
     }
-
 
     public static void main(String[] args) {
         TestDemo testDemo = new TestDemo();

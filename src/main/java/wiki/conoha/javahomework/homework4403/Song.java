@@ -13,19 +13,10 @@ public class Song {
     /**
      *  属性:歌曲ID id、歌名 name、演唱者 singer 均为String类型
      *  方法 构造方法、getter、setter、hashCode、equals、toString
-    */
+     */
     private String id;
     private String name;
     private String singer;
-
-    /**
-     * 构造方法
-     */
-    public Song(String id,String name,String singer) {
-        this.id = id;
-        this.name = name;
-        this.singer = singer;
-    }
 
     /**
      *  getter and setter

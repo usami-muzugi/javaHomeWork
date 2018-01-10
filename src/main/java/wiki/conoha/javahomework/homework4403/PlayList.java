@@ -11,7 +11,7 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  **/
 
-public class PlayList {
+public class PlayList extends Song{
     /**
      * 属性 播放列表名称 PlayListName String 、播放列表中歌曲集合 musicList List
      * 方法 getter、setter
@@ -26,4 +26,33 @@ public class PlayList {
      *
      */
 
+    PlayList(String playListName,List<Song> musicList){
+        super();
+        this.playListName = playListName;
+        this.musicList = musicList;
+    }
+
+    PlayList(String playListName) {
+        super();
+        this.playListName = playListName;
+    }
+
+    private String playListName;
+    private List<Song> musicList;
+
+    public String getPlayListName() {
+        return playListName;
+    }
+
+    public void setPlayListName(String playListName) {
+        this.playListName = playListName;
+    }
+
+    public List<Song> getMusicList() {
+        return musicList;
+    }
+
+    public void setMusicList(List<Song> musicList) {
+        this.musicList = musicList;
+    }
 }
