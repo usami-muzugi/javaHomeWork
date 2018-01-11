@@ -36,9 +36,8 @@ public class PlayListCollection {
 
     //创建主播放列表
     static {
-        map.put("主播放列表",null);
+        map.put("主播放列表",new ArrayList<>());
     }
-
 
     //     *  添加播放列表 public void addPlayList(PlayList playlist)
     public static void addPlayList(PlayList playlist) {
@@ -48,8 +47,9 @@ public class PlayListCollection {
             try {
                 searchPlayListByName(playlist.getPlayListName());
             } catch (Exception e) {         //捕获异常，播放列表不存在，于是添加新播放列表
-                addPlayList(new PlayList(playlist.getPlayListName()));
+                map.put(playlist.getPlayListName(),new ArrayList<>());
                 System.out.println("添加完成！");
+                displayAllPlayListName();
                 return;
             }
             System.out.println("主播放列表不能被添加！请重新添加！");
@@ -58,21 +58,19 @@ public class PlayListCollection {
 
     //     *  删除播放列表 public void deletePlayList(PlayList playlist)
     public static void deletePlayList(PlayList playlist) {
-
-        System.out.println("请输入你要删除的播放列表名称:");
-        String string = scanner.next();
-        try {
-            PlayList playList = searchPlayListByName(string);
-            if (playList.getPlayListName().equals("主播放列表")) {
-                System.out.println("主播放列表不能被删除！请重新添加！");
-            } else {
-                map.remove(playList);
+        if (playlist.getPlayListName().equals("主播放列表")) {
+            System.out.println("主播放列表不能被删除！请重新添加！");
+        } else {
+            try {
+                searchPlayListByName(playlist.getPlayListName());
+                map.remove(playlist.getPlayListName());
+                System.out.println("删除成功！");
+                displayAllPlayListName();
+            } catch (Exception e) {
+                System.out.println("播放列表"+playlist.getPlayListName()+"不存在！请重新删除！");
             }
-        } catch (Exception e) {     //捕获异常，播放列表不存在，于是报个错提示没有找到播放列表
-            System.out.println("你要删除的播放列表不存在！请确认后再删除！");
-            return;
         }
-        map.remove(playlist);
+
     }
 
     //     *  通过名字查询 public PlayList searchPlayListByName(String name);

@@ -2,6 +2,7 @@ package wiki.conoha.javahomework.homework4403;
 
 import java.util.InputMismatchException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -62,6 +63,8 @@ public class TestDemo {
     //     * 播放列表管理菜单 public void playListMenu();
     public void playListMenu() {
         boolean flag = true;
+        Scanner scanner = new Scanner(System.in);
+        String string;
         while (flag) {
             try {
                 System.out.println("******************************************************");
@@ -79,22 +82,67 @@ public class TestDemo {
                 System.out.println("请输入对应数字进行管理: ");
                 int operation = new Scanner(System.in).nextInt();
                 switch (operation) {
-//                    case 1 : playListCollection.addPlayList(); break;
-//                    case 2 :
-//                        try {
-//                            System.out.println("请输入要添加的播放列表名称:");
-//                            playListPublic.setPlayListName(new Scanner(System.in).next());
-//                            playListPublic.addToPlayList();
-//                            playListCollection.getMap().replace("主播放列表",playListMain);
-//                        } catch (NullPointerException e) {
-//                            System.out.println("该播放列表不存在，请先将播放列表添加到播放器中！");
-//                            try {
-//                                Thread.sleep(1000);
-//                            } catch (InterruptedException e1) {
-//                                e1.printStackTrace();
-//                            }
-//                        }
-//                             break;
+                    case 1 : {
+                        boolean fl = true;
+                        System.out.println("将歌曲添加到主播放列表\n请输入要添加的歌曲数量:");
+                        while (fl) {
+                            try {
+                                int sum = new Scanner(System.in).nextInt();
+                                String [][] strings = new String[sum][3];
+                                for (int i = 1; i <= sum; i++) {
+                                    System.out.println("请输入第"+i+"首歌曲");
+                                    System.out.println("请输入第一首歌曲的ID:");
+                                    strings[i-1][0] = scanner.next();
+                                    System.out.println("请输入第一首歌曲的名称:");
+                                    strings[i-1][1] = scanner.next();
+                                    System.out.println("请输入第一首歌曲的演唱者:");
+                                    strings[i-1][2] = scanner.next();
+                                }
+                                for (String[] song:strings
+                                     ) {
+                                    PlayListCollection.searchPlayListByName("主播放列表").addToPlayList(new Song(song[0], song[1], song[2]));
+                                }
+                                fl=false;
+                            } catch (InputMismatchException e) {
+                                System.out.println("输入有误请输入数字");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } break;
+                    case 2 :{
+                        boolean fl = true;
+                        while (fl) {
+                            System.out.println("请输入要添加的播放列表名称:");
+                            string = scanner.next();
+                            if (string.equals("主播放列表")) {
+                                System.out.println("不能添加到主播放列表");
+                            } else {
+                                try {
+                                    System.out.println("请输入要添加的歌曲数量:");
+                                    int sum = new Scanner(System.in).nextInt();
+                                    String[][] strings = new String[sum][3];
+                                    for (int i = 1; i <= sum; i++) {
+                                        System.out.println("请输入第" + i + "首歌曲");
+                                        System.out.println("请输入第一首歌曲的ID:");
+                                        strings[i - 1][0] = scanner.next();
+                                        System.out.println("请输入第一首歌曲的名称:");
+                                        strings[i - 1][1] = scanner.next();
+                                        System.out.println("请输入第一首歌曲的演唱者:");
+                                        strings[i - 1][2] = scanner.next();
+                                    }
+                                    for (String[] song : strings
+                                            ) {
+                                        PlayListCollection.searchPlayListByName(string).addToPlayList(new Song(song[0], song[1], song[2]));
+                                    }
+                                    fl = false;
+                                } catch (Exception e) {
+                                    System.out.println("该播放列表不存在，请先将播放列表添加到播放器中！123");
+                                }
+                            }
+                        }
+                    }
+                             break;
                     case 3 : break;
                     case 4 : break;
                     case 5 : break;
@@ -113,6 +161,7 @@ public class TestDemo {
     //     * 播放器菜单 public void playerMenu();
     public void playerMenu() {
         boolean flag = true;
+        String string;
         while (flag) {
             try {
                 System.out.println("******************************************************");
@@ -127,21 +176,30 @@ public class TestDemo {
                 int operation = new Scanner(System.in).nextInt();
                 switch (operation) {
                     case 1 : {
-                        System.out.println("请输入要添加的播放列表的名称1:");
-                        String string = new Scanner(System.in).next();
+                        System.out.println("请输入要添加的播放列表的名称:");
+                        string = new Scanner(System.in).next();
                         PlayListCollection.addPlayList(new PlayList(string));
                     } break;
                     case 2 : {
                         System.out.println("请输入你要删除的播放列表名称:");
-                        String string = new Scanner(System.in).next();
+                        string = new Scanner(System.in).next();
                         PlayListCollection.deletePlayList(new PlayList(string));
                     } break;
                     case 3 : {
                         System.out.println("请输入你要查询的播放列表名称:");
-                        String string = new Scanner(System.in).next();
+                        string = new Scanner(System.in).next();
                         try {
                             PlayList playList = PlayListCollection.searchPlayListByName(string);
-                            System.out.println(playList.getPlayListName());
+                            System.out.println("播放列表名称:"+playList.getPlayListName()+"\n一共有"+playList.getMusicList().size()+"首歌"+"\n播放列表曲目:");
+                            try {
+                                Iterator<Song> iterator = playList.getMusicList().iterator();
+                                while (iterator.hasNext()) {
+                                    System.out.println(iterator.next());
+                                }
+                            } catch (NullPointerException e) {
+                                System.out.print("播放列表为空！");
+                            }
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

@@ -26,6 +26,14 @@ public class PlayList extends Song{
      *
      */
 
+    private String playListName;
+    private List<Song> musicList = new ArrayList<>();
+
+    //     *      将歌曲添加到播放列表 :   public void addToPlayList(Song song)
+    public void addToPlayList(Song song) {
+        musicList.add(song);
+    }
+
     PlayList(String playListName,List<Song> musicList){
         super();
         this.playListName = playListName;
@@ -36,9 +44,6 @@ public class PlayList extends Song{
         super();
         this.playListName = playListName;
     }
-
-    private String playListName;
-    private List<Song> musicList;
 
     public String getPlayListName() {
         return playListName;
